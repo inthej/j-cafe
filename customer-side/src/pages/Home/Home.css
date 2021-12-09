@@ -1,0 +1,48 @@
+
+
+.home-favourite-order-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.home-favourite-box {*/
+
+/*}*/
+
+.home-favourite-box-title {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 20px;
+    background-color: #D1AC3F;
+}
+
+.home-favourite-list {
+    padding: 10px 10px;
+    overflow-y: scroll;
+    min-height: 100px;
+    max-height: 250px;
+}
+
+.home-favourite-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5px;
+    font-weight: bold;
+}
+
+.home-order-button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: #D1AC3F;
+}
