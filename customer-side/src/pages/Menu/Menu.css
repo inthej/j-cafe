@@ -1,0 +1,37 @@
+.menu-box {
+    padding: 10px 10px;
+    background-color: #121212;
+}
+
+.menu-box-title {
+    color: white;
+    background-color: #121212;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.menu-list {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    height: 500px;
+    padding: 5px 5px;
+
+    background-color: #F1F1F1;
+}
+
+.menu-list-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 2px 2px;
+}
+
+.menu-image {
+
+}
+
+.menu-title {
+
+}
