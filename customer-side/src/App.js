@@ -1,5 +1,6 @@
 import {Redirect, Switch, withRouter} from "react-router-dom";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
+import {HomeProvider} from "./context/home";
 import RouteWithLayout from "./layouts";
 import MainLayout from "./layouts/MainLayout";
 import Coffee from "./pages/Coffee";
@@ -37,18 +38,21 @@ const GlobalStyle = createGlobalStyle`
 const App = () => {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <HomeProvider>
         <GlobalStyle/>
-        <Switch>
-          <Redirect exact from="/" to="/home"/>
-          <RouteWithLayout exact path="/home" layout={MainLayout} component={Home}/>
-          <RouteWithLayout exact path="/favourite" layout={MainLayout} component={Favourite}/>
-          <RouteWithLayout exact path="/menu" layout={MainLayout} component={Menu}/>
-          <RouteWithLayout exact path="/coffee" layout={MainLayout} component={Coffee}/>
-          <RouteWithLayout exact path="/not-found" layout={MainLayout} component={NotFound}/>
-          <Redirect to="/not-found"/>
-        </Switch>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Redirect exact from="/" to="/home"/>
+            <RouteWithLayout path="/home" layout={MainLayout} component={Home}/>
+            <RouteWithLayout path="/favourite/:id" layout={MainLayout} component={Favourite}/>
+            <RouteWithLayout path="/favourite" layout={MainLayout} component={Favourite}/>
+            <RouteWithLayout path="/menu" layout={MainLayout} component={Menu}/>
+            <RouteWithLayout path="/coffee/:id" layout={MainLayout} component={Coffee}/>
+            <RouteWithLayout path="/not-found" layout={MainLayout} component={NotFound}/>
+            <Redirect to="/not-found"/>
+          </Switch>
+        </ThemeProvider>
+      </HomeProvider>
     </>
   );
 }

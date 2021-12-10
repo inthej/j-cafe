@@ -11,7 +11,6 @@ const Container = styled.div`
 
 const Content = props => {
   const {className, height, children} = props;
-  console.log('height:', height);
   return (
     <Container className={className} height={height}>
       {children}

@@ -1,28 +1,23 @@
-import React from 'react';
 import PropType from 'prop-types';
+import React, {useContext} from 'react';
 import styled from "styled-components";
-import './Menu.css';
+import DbContext from "../../context/db";
 import TopBar from "../../layouts/components/TopBar";
+import './Menu.css';
 
 const Container = styled.div`
   background-color: yellow;
   margin: 10px 10px;
 `;
 
-const ImageButton = styled.button`
-  background-image: url('/public/images/cappucino.png');
-  width: 100%;
-  height: 100%;
-`;
-
-const menuList = [
-  {id: 0, title: 'Latte', path: 'images/latte.png'},
-  {id: 1, title: 'Matcha', path: 'images/matcha.png'},
-  {id: 2, title: 'Iced Latte', path: 'images/icedLatte.png'},
-  {id: 3, title: 'Cappuccino', path: 'images/cappucino.png'},
-];
-
 const Menu = props => {
+  const {history} = props;
+  const {dbMenuList} = useContext(DbContext);
+
+  const handleMenuHistory = (id) => {
+    history.push(`/coffee/${id}`);
+  }
+
   return (
     <Container>
       <TopBar title={'The Menu'}/>
@@ -34,8 +29,8 @@ const Menu = props => {
 
         <div className="menu-list">
           {
-            menuList.map(menu => (
-              <div className="menu-list-item" key={menu.id} onClick={() => console.log('click')}>
+            dbMenuList.map(menu => (
+              <div className="menu-list-item" key={menu.id} onClick={() => handleMenuHistory(menu.id)}>
                 <div className="menu-image">
                   <img src={menu.path} width="200" height="200"/>
                 </div>

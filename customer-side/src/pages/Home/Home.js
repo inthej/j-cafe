@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useContext} from 'react';
+import {Link} from "react-router-dom";
 import styled from "styled-components";
+import {AppNames} from "../../common/AppNames";
+import {ArrayUtils} from "../../common/utils/ArrayUtils";
+import HomeContext from "../../context/home";
 import theme from "../../theme";
 import './Home.css';
 
 const Container = styled.div`
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: center;
-  //align-items: center;
   background-color: ${theme.background.gold};
   margin: 10px 10px;
 `;
@@ -19,7 +19,7 @@ const DearName = styled.div`
   color: ${theme.text.gold};
   font-size: 40px;
   font-weight: bold;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,9 +34,22 @@ const OrderButton = styled.button`
   background-color: ${theme.darkGray};
 `;
 
-// Home Container 컴포넌트 만들기 (리덕스 연동 필요함) (나의 즐겨찾기 리스트)
-
 const Home = props => {
+  const {history} = props;
+  const {state} = useContext(HomeContext);
+  const {myFavouriteList} = state;
+
+  const handleOrder = () => {
+    if (ArrayUtils.isEmpty(myFavouriteList)) {
+      alert('선택된 즐겨찾기가 없습니다.');
+      return;
+    }
+
+    alert('주문 고고');
+  }
+
+  console.log('Home myFavouriteList:', myFavouriteList);
+
   return (
     <Container>
       <DearName className="home-dear-box">
@@ -50,18 +63,22 @@ const Home = props => {
 
         <div className="home-favourite-list">
           <ul>
-            <li className="home-favourite-list-item">
-              <span>Medium Latte</span>
-              <span>1</span>
-              <span>$5.00</span>
-              <button>Edit</button>
-            </li>
+            {
+              myFavouriteList.map((myFavourite, myFavouriteIndex) => (
+                <li className="home-favourite-list-item" key={myFavouriteIndex}>
+                  <span style={{width: '150px'}}>{AppNames.SizeType(myFavourite.sizeType)} {myFavourite.title}</span>
+                  <span>{myFavourite.amount}</span>
+                  <span>${myFavourite.price}</span>
+                  <Link to={`/favourite/${myFavourite.id}`}>Edit</Link>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
 
       <div className="home-order-button-box">
-        <OrderButton>Order</OrderButton>
+        <OrderButton onClick={handleOrder}>Order</OrderButton>
       </div>
     </Container>
   );
