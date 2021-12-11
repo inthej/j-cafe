@@ -4,13 +4,11 @@ import DbContext from "./db";
 const HomeContext = createContext();
 
 const HomeProvider = ({ children }) => {
-  const {dbMyFavouriteList} = useContext(DbContext);
+  const { dbMyFavouriteList } = useContext(DbContext);
   const [myFavouriteList, setMyFavouriteList] = useState(dbMyFavouriteList);
 
   const value = {
-    state: {
-      myFavouriteList: myFavouriteList
-    },
+    state: { myFavouriteList: myFavouriteList },
     actions: {setMyFavouriteList}
   }
 

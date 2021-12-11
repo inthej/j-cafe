@@ -1,6 +1,7 @@
-import PropType from 'prop-types';
+import PropType from "prop-types";
 import React, {useContext} from 'react';
 import styled from "styled-components";
+import {ValueUtils} from "../../common/utils/ValueUtils";
 import DbContext from "../../context/db";
 import TopBar from "../../layouts/components/TopBar";
 import './Menu.css';
@@ -17,8 +18,8 @@ const Container = styled.div`
  * @constructor
  */
 const Menu = props => {
-  const {className, history} = props;
-  const {dbMenuList} = useContext(DbContext);
+  const { className, history } = props;
+  const { dbMenuList } = useContext(DbContext);
 
   /**
    * 커피상세페이지
@@ -44,7 +45,7 @@ const Menu = props => {
                 <div className="menu-image">
                   <img src={menu.path} width="200" height="200" alt='image'/>
                 </div>
-                <div className="title">{menu.title}</div>
+                <div className="title">{ValueUtils.nvl(menu.title)}</div>
               </div>
             ))
           }

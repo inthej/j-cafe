@@ -19,10 +19,10 @@ const Container = styled.div`
  * @constructor
  */
 const Favourite = props => {
-  const {className, history, match} = props;
-  const {state, actions} = useContext(HomeContext);
-  const {myFavouriteList} = state;
-  const {setMyFavouriteList} = actions;
+  const { className, history, match } = props;
+  const { state, actions } = useContext(HomeContext);
+  const { myFavouriteList } = state;
+  const { setMyFavouriteList } = actions;
 
   const [favouriteList, setFavouriteList] = useState(myFavouriteList);
   const id = match.params?.id;

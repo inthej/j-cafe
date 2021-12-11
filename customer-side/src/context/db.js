@@ -3,7 +3,17 @@ import {SizeType} from "../common/AppTypes";
 
 /**
  * db dummy data
- * @type {React.Context<{dbMyFavouriteList: [{sizeType: string, amount: number, price: number, id: number, title: string}], dbMenuList: [{path: string, price: {small: number, large: number, medium: number}, id: number, title: string}, {path: string, price: {small: number, large: number, medium: number}, id: number, title: string}, {path: string, price: {small: number, large: number, medium: number}, id: number, title: string}, {path: string, price: {small: number, large: number, medium: number}, id: number, title: string}]}>}
+ * @type {React.Context<{
+ * dbMyFavouriteList: [
+ *   {sizeType: string, amount: number, price: number, id: number, title: string}
+ * ],
+ * dbMenuList: [
+ *   {path: string, price: {small: number, large: number, medium: number}, id: number, title: string},
+ *   {path: string, price: {small: number, large: number, medium: number}, id: number, title: string},
+ *   {path: string, price: {small: number, large: number, medium: number}, id: number, title: string},
+ *   {path: string, price: {small: number, large: number, medium: number}, id: number, title: string}
+ * ]
+ * }>}
  */
 const DbContext = createContext({
   /*

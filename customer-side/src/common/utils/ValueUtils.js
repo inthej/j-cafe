@@ -3,7 +3,7 @@ export class ValueUtils {
     throw new Error();
   }
 
-  static nvl(str, defaultValue) {
+  static nvl(str, defaultValue = '') {
     if (ValueUtils.isEmpty(str)) return defaultValue;
     return str;
   }

@@ -4,10 +4,11 @@ import {Link} from "react-router-dom";
 import styled from "styled-components";
 import {AppNames} from "../../common/AppNames";
 import {ArrayUtils} from "../../common/utils/ArrayUtils";
+import {ValueUtils} from "../../common/utils/ValueUtils";
 import HomeContext from "../../context/home";
 import theme from "../../theme";
-import './Home.css';
 import {OrderButton} from "../../UI/Button";
+import './Home.css';
 
 const Container = styled.div`
   background-color: ${theme.gold};
@@ -30,9 +31,9 @@ const LogoText = styled.div`
  * @returns {JSX.Element}
  * @constructor
  */
-const Home = () => {
-  const {className, state} = useContext(HomeContext);
-  const {myFavouriteList} = state;
+const Home = props => {
+  const { className, state } = useContext(HomeContext);
+  const { myFavouriteList } = state;
 
   /**
    * 주문하기
@@ -61,9 +62,9 @@ const Home = () => {
             {
               myFavouriteList.map((myFavourite, myFavouriteIndex) => (
                 <li className="home-favourite-list-item" key={myFavouriteIndex}>
-                  <span style={{width: '150px'}}>{AppNames.SizeType(myFavourite.sizeType)} {myFavourite.title}</span>
-                  <span>{myFavourite.amount}</span>
-                  <span>${myFavourite.price}</span>
+                  <span style={{width: '150px'}}>{AppNames.SizeType(myFavourite.sizeType)} {ValueUtils.nvl(myFavourite.title)}</span>
+                  <span>{ValueUtils.nvl(myFavourite.amount, 0)}</span>
+                  <span>${ValueUtils.nvl(myFavourite.price, 0)}</span>
                   <Link to={`/favourite/${myFavourite.id}`}>Edit</Link>
                 </li>
               ))

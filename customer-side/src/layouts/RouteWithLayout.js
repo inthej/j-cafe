@@ -3,7 +3,7 @@ import React from 'react';
 import {Route} from "react-router-dom";
 
 /**
- * 라우트를 와 레이아웃을 제공하는 합니다.
+ * 라우트 with 레이아웃을 제공
  * @param props
  * @returns {JSX.Element}
  * @constructor

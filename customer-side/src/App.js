@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
 
 /**
  * 페이지를 라우팅합니다..
- * 전역 데이터 사용은 ContentAPI Provider 를 사용합니다.
+ * 전역 데이터 사용은 ContextAPI Provider 를 사용합니다.
  *
  * @returns {JSX.Element}
  * @constructor
@@ -50,8 +50,8 @@ const App = () => {
   return (
     <>
       <HomeProvider>
-        <GlobalStyle/>
         <ThemeProvider theme={theme}>
+          <GlobalStyle/>
           <Switch>
             <Redirect exact from="/" to="/home"/>
             <RouteWithLayout path="/home" layout={MainLayout} component={Home}/>
