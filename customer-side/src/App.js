@@ -3,13 +3,17 @@ import {createGlobalStyle, ThemeProvider} from "styled-components";
 import {HomeProvider} from "./context/home";
 import RouteWithLayout from "./layouts";
 import MainLayout from "./layouts/MainLayout";
-import Coffee from "./pages/Coffee";
-import Favourite from "./pages/Favourite";
-import Home from "./pages/Home";
-import Menu from "./pages/Menu";
-import NotFound from "./pages/NotFound";
+import Coffee from "./Pages/Coffee";
+import Favourite from "./Pages/Favourite";
+import Home from "./Pages/Home";
+import Menu from "./Pages/Menu";
+import NotFound from "./Pages/NotFound";
 import theme from "./theme";
 
+/**
+ * global style 지정
+ * @type {GlobalStyleComponent<{}, DefaultTheme>}
+ */
 const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
@@ -21,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     align-items:center;
     min-height: 100vh;
     
-    background-color: ${theme.background.white}
+    background-color: ${theme.white}
   }
   
   ul {
@@ -35,6 +39,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+/**
+ * 페이지를 라우팅합니다..
+ * 전역 데이터 사용은 ContentAPI Provider 를 사용합니다.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const App = () => {
   return (
     <>

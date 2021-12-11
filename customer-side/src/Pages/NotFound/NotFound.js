@@ -1,9 +1,15 @@
+import PropType from 'prop-types';
 import React from 'react';
 import styled from "styled-components";
-import PropType from 'prop-types';
 
 const Container = styled.div``;
 
+/**
+ * 404페이지 컴포넌트
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const NotFound = props => {
   const {className} = props;
   return (
@@ -13,6 +19,10 @@ const NotFound = props => {
   )
 }
 
+/**
+ * props type check
+ * @type {{className: (shim|*)}}
+ */
 React.propTypes = {
   className: PropType.string
 }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
@@ -6,13 +7,9 @@ import theme from "../../../theme";
 const Container = styled.div`
   position: relative;
   overflow: hidden;
-  background-color: ${theme.background.black};
+  background-color: ${theme.black};
   min-height: 50px;
   max-height: 50px;
-  
-  //display: flex;
-  //justify-content: center;
-  //align-items: center;
 `;
 
 const BackButton = styled.button`
@@ -29,15 +26,18 @@ const Title = styled.div`
   transform: translate(-50%, -50%);
   
   //
-  color: ${theme.text.white};
+  color: ${theme.white};
   font-size: 30px;
   font-weight: bold;
 `;
 
 const TopBar = props => {
-  const {className, title, children, ...rest} = props;
+  const {className, title} = props;
   const history = useHistory();
 
+  /**
+   * 뒤로가기
+   */
   const handleBack = () => {
     history.goBack();
   }
@@ -45,11 +45,14 @@ const TopBar = props => {
   return (
     <Container className={className}>
       <BackButton onClick={handleBack}>Back</BackButton>
-      <Title>
-        {title}
-      </Title>
+      <Title>{title}</Title>
     </Container>
   )
+}
+
+React.propTypes = {
+  className:  PropTypes.string,
+  title: PropTypes.string
 }
 
 export default TopBar;

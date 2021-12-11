@@ -4,6 +4,12 @@ export default {};
 
 export const AppNames = (function () {
   return {
+    /**
+     * SizeType 별로 보여지는 text
+     * @param type
+     * @returns {string|null}
+     * @constructor
+     */
     SizeType: function (type) {
       switch (type) {
         case SizeType.small: return 'Small';
@@ -12,6 +18,12 @@ export const AppNames = (function () {
         default: return null;
       }
     },
+    /**
+     * SizeType 별로 보여지는 PreFix
+     * @param type
+     * @returns {string|null}
+     * @constructor
+     */
     SizeTypePrefix: function (type) {
       switch (type) {
         case SizeType.small: return 'S';

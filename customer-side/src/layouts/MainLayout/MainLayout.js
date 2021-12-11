@@ -4,6 +4,10 @@ import styled from "styled-components";
 import ButtonBar from "../components/ButtonBar";
 import Content from "../components/Content";
 
+/**
+ * Styled Container
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,6 +24,12 @@ const Container = styled.div`
   border-color: black;
 `;
 
+/**
+ * 컴포넌트를 배치합니다.
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const MainLayout = props => {
   const {children} = props;
   return (

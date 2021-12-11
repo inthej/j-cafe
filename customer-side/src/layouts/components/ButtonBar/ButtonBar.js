@@ -10,13 +10,13 @@ const Container = styled.div`
   align-items: center;
   
   height: 100px;
-  background-color: ${theme.background.white};
+  background-color: ${theme.white};
 `;
 
 const Button = styled.button`
   width: 150px;
   height: 40px;
-  background-color: ${theme.background.gold};
+  background-color: ${theme.gold};
   font-weight: bold;
 `;
 

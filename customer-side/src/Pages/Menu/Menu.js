@@ -10,16 +10,26 @@ const Container = styled.div`
   margin: 10px 10px;
 `;
 
+/**
+ * 메뉴 페이지 컴포넌트
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Menu = props => {
-  const {history} = props;
+  const {className, history} = props;
   const {dbMenuList} = useContext(DbContext);
 
+  /**
+   * 커피상세페이지
+   * @param id
+   */
   const handleMenuHistory = (id) => {
     history.push(`/coffee/${id}`);
   }
 
   return (
-    <Container>
+    <Container className={className}>
       <TopBar title={'The Menu'}/>
 
       <div className="menu-box">
@@ -32,7 +42,7 @@ const Menu = props => {
             dbMenuList.map(menu => (
               <div className="menu-list-item" key={menu.id} onClick={() => handleMenuHistory(menu.id)}>
                 <div className="menu-image">
-                  <img src={menu.path} width="200" height="200"/>
+                  <img src={menu.path} width="200" height="200" alt='image'/>
                 </div>
                 <div className="title">{menu.title}</div>
               </div>
@@ -41,12 +51,16 @@ const Menu = props => {
         </div>
       </div>
     </Container>
-)
+  )
 }
 
-React.propTypes =
-  {
-    className: PropType.string
-  }
+/**
+ * prop type check
+ * @type {{className: (shim|*), history: (shim|*)}}
+ */
+React.propTypes = {
+  className: PropType.string,
+  history: PropType.object
+}
 
 export default Menu;

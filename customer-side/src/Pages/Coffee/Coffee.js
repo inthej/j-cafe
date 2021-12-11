@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {AppNames} from "../../common/AppNames";
@@ -6,7 +7,7 @@ import {ValueUtils} from "../../common/utils/ValueUtils";
 import DbContext from "../../context/db";
 import HomeContext from "../../context/home";
 import TopBar from "../../layouts/components/TopBar";
-import theme from "../../theme";
+import {SaveButton, SizeTypeButton} from "../../UI/Button";
 import './Coffee.css';
 
 const Container = styled.div`
@@ -14,27 +15,22 @@ const Container = styled.div`
   margin: 10px 10px;
 `;
 
-const SizeButton = styled.button`
-  width: 50px;
-  height: 50px;
-`;
-
-export const SaveButton = styled.button`
-  width: 100px;
-  background-color: ${theme.blue};
-`;
-
+/**
+ * 커미 상세페이지 컴포넌트
+ * 음료 사이즈 선택 기능을 제공
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Coffee = props => {
-  const {match, history} = props;
+  const {className, match, history} = props;
   const {dbMenuList} = useContext(DbContext);
   const {state, actions} = useContext(HomeContext);
   const {myFavouriteList} = state;
-  const {setMyFavouriteList, getNewMyFavouriteId} = actions;
+  const {setMyFavouriteList} = actions;
   const id = match.params?.id;
 
   const [selectMenuList, setSelectMenuList] = useState([]);
-
-  const findMenu = dbMenuList.find(menu => `${menu.id}` === id);
 
   useEffect(() => {
     if (isInvalidId(id)) {
@@ -43,58 +39,70 @@ const Coffee = props => {
     }
   }, [id]);
 
+  /**
+   * 유효하지 않은 파라미터 ID값 인지 확인합니다.
+   * @param menuId
+   * @returns {boolean}
+   */
   const isInvalidId = (menuId) => {
     const findIndex = dbMenuList.findIndex(menu => `${menu.id}` === menuId);
     return findIndex === -1;
   }
 
+  /**
+   * 메뉴를 선택 기능처리
+   * @param sizeType
+   */
   const handleSelectMenu = (sizeType) => {
     const hasMenu = selectMenuList.findIndex(selectMenu => selectMenu.sizeType === sizeType) > -1;
+
+    let newSelectMenuList = [];
     if (hasMenu) {
-      const newSelectMenuList = selectMenuList.map(menu => menu.sizeType === sizeType ? {
+      // 이미선택한 메뉴인경우 수량,가격 수정
+      newSelectMenuList = selectMenuList.map(menu => menu.sizeType === sizeType ? {
         ...menu,
         amount: menu.amount + 1,
         price: (menu.price + findMenu.price[sizeType])
       } : menu);
-
-      setSelectMenuList(newSelectMenuList);
     } else {
+      // 신규선택 메뉴인경우 신규등록
       const selectMenu = {
         sizeType: sizeType,
         title: findMenu.title,
         amount: 1,
         price: ValueUtils.nvl(findMenu.price[sizeType], 0)
       }
-
-      const newSelectMenuList = selectMenuList.concat(selectMenu);
-      setSelectMenuList(newSelectMenuList);
+      newSelectMenuList = selectMenuList.concat(selectMenu);
     }
+
+    setSelectMenuList(newSelectMenuList);
   }
 
+  /**
+   * 선택한 메뉴리스트를 즐겨찾기에 저장합니다.
+   * 즐겨찾기에 등록된 메뉴인경우 수량, 가격을 조정합니다.
+   */
   const handleSave = () => {
     let saveFavouriteList = myFavouriteList;
     selectMenuList.forEach(selectMenu => {
       const findMyFavourite = myFavouriteList.find(myFavourite => (myFavourite.sizeType === selectMenu.sizeType && myFavourite.title === selectMenu.title));
       // 즐겨찾기에 메뉴가 이미 있는경우 (수량, 가격 올려주기)
       if (findMyFavourite) {
-        console.log('이미존재함');
         const amount = findMyFavourite.amount + selectMenu.amount;
         const price = findMyFavourite.price + selectMenu.price;
 
-        // 수량 가격 올려주기
+        // 수량/가격 수정
         const newFavouriteList = saveFavouriteList.map(myFavourite => myFavourite.sizeType === selectMenu.sizeType && myFavourite.title === selectMenu.title ? {
           ...myFavourite,
           amount: amount,
           price: price
         } : myFavourite);
-        //
-        // // 갱신
+
+        // 갱신
         saveFavouriteList = newFavouriteList;
 
       } else {
-        console.log('신규추가');
-        console.log('saveFavouriteList:', saveFavouriteList);
-        // 즐겨찾기에 메뉴가 없는경우 (id 생성, 선택메뉴 즐겨찾기에 추가)
+        // 즐겨찾기에 메뉴가 없는경우 (고유 id 생성, 선택메뉴 즐겨찾기에 추가)
         const lastMyFavourite = saveFavouriteList[saveFavouriteList.length - 1];
         const lastMyFavouriteId = !ValueUtils.isEmpty(lastMyFavourite?.id) ? lastMyFavourite.id + 1 : 0; // undefined || number;
         const newFavourite = {
@@ -108,19 +116,17 @@ const Coffee = props => {
       }
     });
 
-    console.log('saveList:', saveFavouriteList)
-
     setMyFavouriteList(saveFavouriteList);
 
-    history.push('/home');
+    // 등록이후 메뉴페이지로 이동
+    history.push('/menu');
   }
 
-  console.log('myFavouriteList:', myFavouriteList);
-
-  const totalAmount = selectMenuList.reduce((acc, selectMenu) => acc + selectMenu.amount, 0);
-  const totalPrice = selectMenuList.reduce((acc, selectMenu) => acc + selectMenu.price, 0);
+  const findMenu = dbMenuList.find(menu => `${menu.id}` === id); // 찾은메뉴 (DB리스트에서 id에 해당되는 메뉴를 찾습니다) undefined || object
+  const totalAmount = selectMenuList.reduce((acc, selectMenu) => acc + selectMenu.amount, 0); // 총수량
+  const totalPrice = selectMenuList.reduce((acc, selectMenu) => acc + selectMenu.price, 0); // 총가격
   return (
-    <Container>
+    <Container className={className}>
       <TopBar title="Coffee"/>
 
       <div className="coffee-info-box">
@@ -135,7 +141,7 @@ const Coffee = props => {
 
             <div className="coffee-size-item">
               <div className="coffee-size-item-button">
-                <SizeButton onClick={() => handleSelectMenu(SizeType.small)}>{AppNames.SizeTypePrefix(SizeType.small)}</SizeButton>
+                <SizeTypeButton onClick={() => handleSelectMenu(SizeType.small)}>{AppNames.SizeTypePrefix(SizeType.small)}</SizeTypeButton>
               </div>
               <div className="coffee-size-item-price">
                 ${ValueUtils.nvl(findMenu.price.small, 0)}
@@ -144,7 +150,7 @@ const Coffee = props => {
 
             <div className="coffee-size-item">
               <div className="coffee-size-item-button">
-                <SizeButton onClick={() => handleSelectMenu(SizeType.medium)}>{AppNames.SizeTypePrefix(SizeType.medium)}</SizeButton>
+                <SizeTypeButton onClick={() => handleSelectMenu(SizeType.medium)}>{AppNames.SizeTypePrefix(SizeType.medium)}</SizeTypeButton>
               </div>
               <div className="coffee-size-item-price">
                 ${ValueUtils.nvl(findMenu.price.medium, 0)}
@@ -153,7 +159,7 @@ const Coffee = props => {
 
             <div className="coffee-size-item">
               <div className="coffee-size-checkbox">
-                <SizeButton onClick={() => handleSelectMenu(SizeType.large)}>{AppNames.SizeTypePrefix(SizeType.large)}</SizeButton>
+                <SizeTypeButton onClick={() => handleSelectMenu(SizeType.large)}>{AppNames.SizeTypePrefix(SizeType.large)}</SizeTypeButton>
               </div>
               <div className="coffee-size-item-price">
                 ${ValueUtils.nvl(findMenu.price.large, 0)}
@@ -191,6 +197,16 @@ const Coffee = props => {
       </div>
     </Container>
   )
+}
+
+/**
+ * props type check
+ * @type {{match: (shim|*), className: (shim|*), history: (shim|*)}}
+ */
+React.propTypes = {
+  className: PropTypes.string,
+  match: PropTypes.object,
+  history: PropTypes.object
 }
 
 export default Coffee;
