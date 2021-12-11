@@ -117,7 +117,7 @@ const Favourite = props => {
             {
               favouriteList.map((favourite, favouriteIndex) => (
                 <li className="favourite-list-item" key={favouriteIndex}>
-                  <span>{AppNames.SizeType(favourite.sizeType)} {ValueUtils.nvl(favourite.title)}</span>
+                  <span style={{minWidth: '150px', maxWidth: '150px'}}>{AppNames.SizeType(favourite.sizeType)} {ValueUtils.nvl(favourite.title)}</span>
                   <button onClick={() => handleIncrease(favourite.id)}>+</button>
                   <span>{ValueUtils.nvl(favourite.amount, 0)}</span>
                   <button onClick={() => handleDecrease(favourite.id)}>-</button>

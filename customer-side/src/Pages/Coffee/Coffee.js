@@ -179,7 +179,7 @@ const Coffee = props => {
             {
               selectMenuList.map((selectMenu, selectIndex) => (
                 <li className="coffee-select-list-item" key={selectIndex}>
-                  <span>{AppNames.SizeType(selectMenu.sizeType)} {ValueUtils.nvl(selectMenu.title)}</span>
+                  <span style={{width: '150px'}}>{AppNames.SizeType(selectMenu.sizeType)} {ValueUtils.nvl(selectMenu.title)}</span>
                   <span>{ValueUtils.nvl(selectMenu.amount, 0)}</span>
                   <span>${ValueUtils.nvl(selectMenu.price, 0)}</span>
                 </li>

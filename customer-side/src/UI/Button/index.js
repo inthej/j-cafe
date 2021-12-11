@@ -16,6 +16,7 @@ export const SaveButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
+  width: 30px;
   background-color: ${theme.red};
 `;
 

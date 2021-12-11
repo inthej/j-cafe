@@ -80,7 +80,7 @@
     flex-direction: row;
     justify-content: space-around;
     background-color: white;
-    margin: 2px 2px;
+    margin: 1px 0px;
 }
 
 .coffee-select-list-item-line {
