@@ -14,7 +14,7 @@ const Container = styled.div`
   margin: 10px 10px;
 `;
 
-const DearText = styled.div`
+const LogoText = styled.div`
   height: 150px;
   background-color: ${theme.black};
   color: ${theme.gold};
@@ -47,9 +47,9 @@ const Home = () => {
 
   return (
     <Container className={className}>
-      <DearText className="dear-text">
-        Dear Tony
-      </DearText>
+      <LogoText className="dear-text">
+        J Cafe
+      </LogoText>
 
       <div className="home-favourite-box">
         <div className="home-favourite-box-title">
