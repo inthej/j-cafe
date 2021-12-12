@@ -58,11 +58,10 @@ const Coffee = props => {
 
     let newSelectMenuList = [];
     if (hasMenu) {
-      // 이미선택한 메뉴인경우 수량,가격 수정
+      // 이미선택한 메뉴인경우 수량 수정
       newSelectMenuList = selectMenuList.map(menu => menu.sizeType === sizeType ? {
         ...menu,
-        amount: menu.amount + 1,
-        price: (menu.price + findMenu.price[sizeType])
+        amount: menu.amount + 1
       } : menu);
     } else {
       // 신규선택 메뉴인경우 신규등록
@@ -86,16 +85,14 @@ const Coffee = props => {
     let saveFavouriteList = myFavouriteList;
     selectMenuList.forEach(selectMenu => {
       const findMyFavourite = myFavouriteList.find(myFavourite => (myFavourite.sizeType === selectMenu.sizeType && myFavourite.title === selectMenu.title));
-      // 즐겨찾기에 메뉴가 이미 있는경우 (수량, 가격 올려주기)
+      // 즐겨찾기에 메뉴가 이미 있는경우 (수량 수정)
       if (findMyFavourite) {
         const amount = findMyFavourite.amount + selectMenu.amount;
-        const price = findMyFavourite.price + selectMenu.price;
 
         // 수량/가격 수정
         const newFavouriteList = saveFavouriteList.map(myFavourite => myFavourite.sizeType === selectMenu.sizeType && myFavourite.title === selectMenu.title ? {
           ...myFavourite,
-          amount: amount,
-          price: price
+          amount: amount
         } : myFavourite);
 
         // 갱신
@@ -124,7 +121,7 @@ const Coffee = props => {
 
   const findMenu = dbMenuList.find(menu => `${menu.id}` === id); // 찾은메뉴 (DB리스트에서 id에 해당되는 메뉴를 찾습니다) undefined || object
   const totalAmount = selectMenuList.reduce((acc, selectMenu) => acc + selectMenu.amount, 0); // 총수량
-  const totalPrice = selectMenuList.reduce((acc, selectMenu) => acc + selectMenu.price, 0); // 총가격
+  const totalPrice = selectMenuList.reduce((acc, selectMenu) => acc + (selectMenu.amount * selectMenu.price), 0); // 총가격
   return (
     <Container className={className}>
       <TopBar title="Coffee"/>
