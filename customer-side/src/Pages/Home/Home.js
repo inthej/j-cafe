@@ -60,14 +60,18 @@ const Home = props => {
         <div className="home-favourite-list">
           <ul>
             {
-              myFavouriteList.map((myFavourite, myFavouriteIndex) => (
-                <li className="home-favourite-list-item" key={myFavouriteIndex}>
-                  <span style={{width: '150px'}}>{AppNames.SizeType(myFavourite.sizeType)} {ValueUtils.nvl(myFavourite.title)}</span>
-                  <span>{ValueUtils.nvl(myFavourite.amount, 0)}</span>
-                  <span>${ValueUtils.nvl(myFavourite.price, 0)}</span>
-                  <Link to={`/favourite/${myFavourite.id}`}>Edit</Link>
-                </li>
-              ))
+              myFavouriteList.map((myFavourite, myFavouriteIndex) => {
+                const favouritePrice = myFavourite.price * myFavourite.amount;
+                return (
+                  <li className="home-favourite-list-item" key={myFavouriteIndex}>
+                    <span
+                      style={{width: '150px'}}>{AppNames.SizeType(myFavourite.sizeType)} {ValueUtils.nvl(myFavourite.title)}</span>
+                    <span>{ValueUtils.nvl(myFavourite.amount, 0)}</span>
+                    <span>${ValueUtils.floatFixed(favouritePrice, 1)}</span>
+                    <Link to={`/favourite/${myFavourite.id}`}>Edit</Link>
+                  </li>
+                )
+              })
             }
           </ul>
         </div>

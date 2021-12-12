@@ -121,7 +121,7 @@ const Favourite = props => {
                   <button onClick={() => handleIncrease(favourite.id)}>+</button>
                   <span>{ValueUtils.nvl(favourite.amount, 0)}</span>
                   <button onClick={() => handleDecrease(favourite.id)}>-</button>
-                  <span>${ValueUtils.nvl(favourite.price)}</span>
+                  <span>${ValueUtils.floatFixed(favourite.price, 1)}</span>
                   <DeleteButton onClick={() => handleDelete(favourite.id)}>X</DeleteButton>
                 </li>
               ))
@@ -134,7 +134,7 @@ const Favourite = props => {
         <div className="favourite-list-total">
           <span>Total</span>
           <span>{totalAmount}</span>
-          <span>${totalPrice}</span>
+          <span>${ValueUtils.floatFixed(totalPrice, 1)}</span>
           <SaveButton onClick={handleSave}>Save</SaveButton>
         </div>
       </div>

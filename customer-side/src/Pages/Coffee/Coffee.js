@@ -144,7 +144,7 @@ const Coffee = props => {
                 <SizeTypeButton onClick={() => handleSelectMenu(SizeType.small)}>{AppNames.SizeTypePrefix(SizeType.small)}</SizeTypeButton>
               </div>
               <div className="coffee-size-item-price">
-                ${ValueUtils.nvl(findMenu.price.small, 0)}
+                ${ValueUtils.floatFixed(findMenu.price.small, 1)}
               </div>
             </div>
 
@@ -153,7 +153,7 @@ const Coffee = props => {
                 <SizeTypeButton onClick={() => handleSelectMenu(SizeType.medium)}>{AppNames.SizeTypePrefix(SizeType.medium)}</SizeTypeButton>
               </div>
               <div className="coffee-size-item-price">
-                ${ValueUtils.nvl(findMenu.price.medium, 0)}
+                ${ValueUtils.floatFixed(findMenu.price.medium, 1)}
               </div>
             </div>
 
@@ -162,7 +162,7 @@ const Coffee = props => {
                 <SizeTypeButton onClick={() => handleSelectMenu(SizeType.large)}>{AppNames.SizeTypePrefix(SizeType.large)}</SizeTypeButton>
               </div>
               <div className="coffee-size-item-price">
-                ${ValueUtils.nvl(findMenu.price.large, 0)}
+                ${ValueUtils.floatFixed(findMenu.price.large, 1)}
               </div>
             </div>
 
@@ -181,7 +181,7 @@ const Coffee = props => {
                 <li className="coffee-select-list-item" key={selectIndex}>
                   <span style={{width: '150px'}}>{AppNames.SizeType(selectMenu.sizeType)} {ValueUtils.nvl(selectMenu.title)}</span>
                   <span>{ValueUtils.nvl(selectMenu.amount, 0)}</span>
-                  <span>${ValueUtils.nvl(selectMenu.price, 0)}</span>
+                  <span>${ValueUtils.floatFixed(selectMenu.price, 1)}</span>
                 </li>
               ))
             }
@@ -191,7 +191,7 @@ const Coffee = props => {
         <div className="coffee-select-list-total">
           <span>Total</span>
           <span>{totalAmount}</span>
-          <span>${totalPrice}</span>
+          <span>${ValueUtils.floatFixed(totalPrice, 1)}</span>
           <SaveButton onClick={handleSave}>Save</SaveButton>
         </div>
       </div>
