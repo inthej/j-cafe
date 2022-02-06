@@ -9,7 +9,7 @@ const HomeProvider = ({ children }) => {
 
   const value = {
     state: { myFavouriteList: myFavouriteList },
-    actions: {setMyFavouriteList}
+    actions: { setMyFavouriteList }
   }
 
   return (

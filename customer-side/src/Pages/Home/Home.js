@@ -43,6 +43,7 @@ const Home = props => {
       alert('선택된 메뉴가 없습니다.');
       return;
     }
+
     alert('주문 고고');
   }
 

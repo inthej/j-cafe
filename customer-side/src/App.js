@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     min-height: 100vh;
     
     background-color: ${theme.white}
@@ -55,8 +55,7 @@ const App = () => {
           <Switch>
             <Redirect exact from="/" to="/home"/>
             <RouteWithLayout path="/home" layout={MainLayout} component={Home}/>
-            <RouteWithLayout path="/favourite/:id" layout={MainLayout} component={Favourite}/>
-            <RouteWithLayout path="/favourite" layout={MainLayout} component={Favourite}/>
+            <RouteWithLayout path="/favourite/:id?" layout={MainLayout} component={Favourite}/>
             <RouteWithLayout path="/menu" layout={MainLayout} component={Menu}/>
             <RouteWithLayout path="/coffee/:id" layout={MainLayout} component={Coffee}/>
             <RouteWithLayout path="/not-found" layout={MainLayout} component={NotFound}/>

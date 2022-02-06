@@ -28,14 +28,19 @@ const Favourite = props => {
   const id = match.params?.id;
 
   useEffect(() => {
-    if (isValidId(id)) {
-      const filterList = myFavouriteList.filter(favourite => `${favourite.id}` === id);
-      setFavouriteList(filterList);
-    }
-
     if (id === undefined) {
       setFavouriteList(myFavouriteList);
+      return
     }
+
+    if (!isValidId(id)) {
+      alert('유효하지 않은 path id 입니다')
+      history.push('/')
+      return
+    }
+
+    const filterList = myFavouriteList.filter(favourite => `${favourite.id}` === id);
+    setFavouriteList(filterList);
   }, [id]);
 
   /**

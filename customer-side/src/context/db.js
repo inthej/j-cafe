@@ -26,9 +26,7 @@ const DbContext = createContext({
    * ]
    *
    */
-  dbMyFavouriteList: [
-    {id: 0, sizeType: SizeType.small, title: 'Latte', amount: 1, price: 4} // 임시
-  ],
+  dbMyFavouriteList: [],
 
   /*
    * DB 메뉴 데이터 샘플
